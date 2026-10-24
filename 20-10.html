@@ -107,7 +107,7 @@ for(let i=0;i<heartN;i++){
 const heartPoints=makePoints(heartGroup,heartPos,heartCol,heartSize,heartSeed,.4);
 // Starlight tracing the edge of the heart.
 const rimN=2800,rimPos=new Float32Array(rimN*3),rimCol=new Float32Array(rimN*3),rimSize=new Float32Array(rimN),rimSeed=new Float32Array(rimN);
-for(let i=0;i<rimN;i++){const t=i/rimN*Math.PI*2,p=heartXY(t),j=i*3,s=3.5;rIm:
+for(let i=0;i<rimN;i++){const t=i/rimN*Math.PI*2,p=heartXY(t),j=i*3,s=3.5;
  rimPos[j]=p.x/s+(Math.random()-.5)*.10;rimPos[j+1]=(p.y+2.5)/s+(Math.random()-.5)*.10;rimPos[j+2]=(Math.random()-.5)*.5;
  const c=new THREE.Color(i%4===0?0xffffff:(i%2===0?0xffd3f0:0xff80cb));rimCol[j]=c.r;rimCol[j+1]=c.g;rimCol[j+2]=c.b;rimSize[i]=1+Math.random()*3.5;rimSeed[i]=Math.random();}
 const rimPoints=makePoints(heartGroup,rimPos,rimCol,rimSize,rimSeed,.7);
