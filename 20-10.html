@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#09051b">
+<title>Vũ Trụ Trái Tim — 20/10</title>
+<meta name="description" content="Một vũ trụ nhỏ được dệt từ trái tim, ánh sao và lời chúc mừng ngày 20/10.">
+<style>
+:root{color-scheme:dark;--pink:#ff83c9;--violet:#b59aff;--muted:#c8bcd9}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#09051b;color:#fff7fd;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{isolation:isolate}
+#universe{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none}
+.backdrop{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 48%,transparent 20%,rgba(11,5,29,.18) 52%,rgba(4,3,16,.78) 100%),linear-gradient(180deg,rgba(10,4,27,.28),transparent 33%,rgba(9,3,24,.3))}
+.texture{position:fixed;inset:0;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");mix-blend-mode:screen}
+.top{position:fixed;z-index:4;top:0;left:0;right:0;padding:25px clamp(18px,4vw,58px);display:flex;justify-content:space-between;align-items:center;gap:16px;pointer-events:none}
+.brand{display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.26em;font-weight:800;text-transform:uppercase;color:#fbe6ff}
+.brand-symbol{font-size:24px;line-height:1;color:#ff9ad7;text-shadow:0 0 17px #ff62b7,0 0 32px #a15eff}
+.live{display:flex;align-items:center;gap:8px;color:#d7c4e6;font-size:9px;letter-spacing:.2em;text-transform:uppercase}
+.dot{height:6px;width:6px;border-radius:50%;background:#ff98d9;box-shadow:0 0 12px #ff75c9;animation:pulse 1.7s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.45;transform:scale(.68)}}
+.heading{position:fixed;z-index:3;top:8.7%;left:16px;right:16px;text-align:center;pointer-events:none;text-shadow:0 2px 35px rgba(255,95,196,.22)}
+.eyebrow{font-size:clamp(8px,1vw,11px);font-weight:750;letter-spacing:.38em;text-transform:uppercase;color:#ffc6e9;margin-bottom:12px}
+h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(29px,5.1vw,61px);line-height:1.03;letter-spacing:.015em;margin:0;color:#fff2fa;text-wrap:balance}
+h1 span{color:transparent;background:linear-gradient(100deg,#fff4fb 5%,#ffc2e7 47%,#c8b5ff 87%);background-clip:text;-webkit-background-clip:text}
+.subtitle{margin:12px auto 0;color:#d8c5e3;font-size:clamp(10px,1.15vw,13px);letter-spacing:.08em;font-weight:350}
+.bottom-message{position:fixed;z-index:3;bottom:105px;left:12px;right:12px;text-align:center;pointer-events:none;text-shadow:0 0 24px rgba(255,110,199,.3)}
+.wish{font-family:Georgia,"Times New Roman",serif;font-size:clamp(16px,2.15vw,25px);color:#ffe6f5;letter-spacing:.025em}
+.smallwish{margin-top:7px;font-size:clamp(9px,1vw,11px);color:#cdb9df;letter-spacing:.13em}
+.controls{position:fixed;z-index:6;left:10px;right:10px;bottom:22px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px}
+button{min-height:40px;padding:0 15px;display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;border:1px solid rgba(255,193,231,.25);background:rgba(30,12,53,.6);backdrop-filter:blur(15px);color:#fff0fb;font:inherit;font-size:11px;cursor:pointer;transition:transform .2s,border-color .2s,background .2s,box-shadow .2s}
+button:hover{transform:translateY(-2px);border-color:rgba(255,174,224,.75);background:rgba(83,30,89,.65);box-shadow:0 0 22px rgba(255,111,201,.12)}
+button:focus-visible{outline:2px solid #ffc2e7;outline-offset:3px}
+button.main{background:linear-gradient(110deg,rgba(202,73,151,.42),rgba(120,73,187,.42));border-color:rgba(255,174,224,.48)}
+button .ico{font-size:14px}
+.hint{position:fixed;z-index:3;bottom:77px;left:0;right:0;text-align:center;font-size:8px;text-transform:uppercase;letter-spacing:.23em;color:rgba(226,201,240,.65);pointer-events:none}
+.corner{position:fixed;z-index:3;left:clamp(16px,4vw,54px);top:44%;writing-mode:vertical-rl;transform:rotate(180deg);font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:rgba(220,179,235,.54);pointer-events:none}
+.corner.right{left:auto;right:clamp(16px,4vw,54px);transform:none}
+.fallback{display:none;position:fixed;inset:0;z-index:10;background:#09051b;color:#ffeaf7;padding:28px;place-content:center;text-align:center}
+.fallback.show{display:grid}
+@media(max-width:650px){.top{padding:17px 16px}.brand{font-size:8px;letter-spacing:.17em;gap:7px}.brand-symbol{font-size:19px}.live{font-size:7px;letter-spacing:.1em}.heading{top:10%}.eyebrow{letter-spacing:.24em;margin-bottom:9px}.subtitle{max-width:290px;line-height:1.5;margin-top:9px}.bottom-message{bottom:132px;padding:0 18px}.wish{line-height:1.25}.smallwish{max-width:290px;margin:7px auto 0;line-height:1.5;letter-spacing:.07em}.controls{bottom:calc(13px + env(safe-area-inset-bottom));gap:6px}button{min-height:38px;padding:0 11px;font-size:10px}.hint{bottom:92px;font-size:7px;letter-spacing:.15em}.corner{display:none}}
+@media(max-height:650px) and (min-width:651px){.heading{top:6%}h1{font-size:40px}.subtitle{margin-top:7px}.bottom-message{bottom:83px}.controls{bottom:12px}.hint{bottom:62px}}
+@media(prefers-reduced-motion:reduce){.dot{animation:none}button{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="universe" aria-label="Vũ trụ 3D lấp lánh với một trái tim khổng lồ và những trái tim bay quanh"></canvas>
+<div class="backdrop"></div><div class="texture"></div>
+<header class="top"><div class="brand"><span class="brand-symbol">♡</span><span>A UNIVERSE MADE OF LOVE</span></div><div class="live"><span class="dot"></span> Special for 20 · 10</div></header>
+<section class="heading"><div class="eyebrow">To all the wonderful women</div><h1>Một vũ trụ <span>ngàn yêu thương</span></h1><div class="subtitle">Dành tặng những người phụ nữ tuyệt vời — 20 tháng 10</div></section>
+<div class="corner">made of stardust & kindness</div><div class="corner right">every star carries a wish</div>
+<section class="bottom-message"><div class="wish">Chúc mừng Ngày Phụ nữ Việt Nam 20/10 ♡</div><div class="smallwish">Chúc bạn luôn rạng rỡ, hạnh phúc và được yêu thương theo cách đẹp nhất.</div></section>
+<div class="hint">Chạm và kéo để xoay trái tim giữa các vì sao</div>
+<nav class="controls" aria-label="Điều khiển vũ trụ trái tim">
+<button class="main" id="rotate" type="button" aria-pressed="true"><span class="ico">Ⅱ</span><span id="rotateText">Tạm dừng xoay</span></button>
+<button id="glow" type="button"><span class="ico">✧</span><span>Đổi ánh sáng</span></button>
+<button id="gift" type="button"><span class="ico">♡</span><span>Gửi lời chúc</span></button>
+<button id="full" type="button"><span class="ico">⛶</span><span>Toàn màn hình</span></button>
+</nav>
+<div class="fallback" id="fallback"><div><h2>Trái tim đang chờ những vì sao…</h2><p>Trang cần Internet để tải công cụ đồ họa 3D. Hãy kiểm tra kết nối và tải lại nhé.</p></div></div>
+<script type="module">
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js";
+const canvas=document.getElementById("universe"),fallback=document.getElementById("fallback");
+let renderer;
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:"high-performance"});}catch(e){fallback.classList.add("show");throw e;}
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.6));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x09051b);scene.fog=new THREE.FogExp2(0x09051b,.006);
+const camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.1,240);camera.position.set(0,0,22);camera.lookAt(0,0,0);
+scene.add(new THREE.AmbientLight(0x8d75bb,.75));
+const pinkLight=new THREE.PointLight(0xff62bf,95,38,1.6);pinkLight.position.set(-2,2,4);scene.add(pinkLight);
+const violetLight=new THREE.PointLight(0x8e66ff,80,36,1.8);violetLight.position.set(4,-2,-2);scene.add(violetLight);
+const warmLight=new THREE.PointLight(0xffb7df,45,28,1.9);warmLight.position.set(0,4,1);scene.add(warmLight);
+const world=new THREE.Group();scene.add(world);const heartGroup=new THREE.Group();world.add(heartGroup);
+let rotating=true,dragging=false,px=0,py=0,rotY=0,rotX=-.1,palette=0,celebrating=false,celebrateUntil=0;
+const clock=new THREE.Clock();
+const palettes=[{heart:[0xffa0db,0xff4fae,0xdcb7ff],orbit:0xffa9e8,glow:0xff65c0,label:"Ánh hồng tình yêu"},{heart:[0xffe8b0,0xffa2c7,0xff75ac],orbit:0xffd6aa,glow:0xffb17a,label:"Ánh vàng dịu dàng"},{heart:[0xa2f5ff,0x8a7dff,0xff91d7],orbit:0x9feeff,glow:0x9a83ff,label:"Ánh cực quang"}];
+const vertex=[
+"attribute float aSize;","attribute float aSeed;","attribute vec3 aColor;","uniform float uTime;","uniform float uBoost;","varying vec3 vColor;","varying float vAlpha;","void main(){","vColor=aColor;","vec4 mv=modelViewMatrix*vec4(position,1.0);","float twinkle=.66+.34*sin(uTime*(1.0+aSeed*2.6)+aSeed*57.0);","float beat=1.0+uBoost*.18*sin(uTime*7.0+aSeed*16.0);","gl_PointSize=clamp(aSize*twinkle*beat*(250.0/max(1.0,-mv.z)),1.0,9.0);","gl_Position=projectionMatrix*mv;","vAlpha=.4+.6*twinkle;","}"
+].join("\n");
+const fragment=[
+"varying vec3 vColor;","varying float vAlpha;","void main(){","vec2 p=gl_PointCoord-vec2(.5);","float d=length(p);","float halo=exp(-d*10.0);","float core=1.0-smoothstep(.015,.22,d);","float a=(halo*.35+core*.95)*vAlpha;","if(a<.025)discard;","gl_FragColor=vec4(vColor*(1.0+halo*.6),a);","}"
+].join("\n");
+function makePoints(parent,positions,colors,sizes,seeds,boost=0){
+ const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(positions,3));g.setAttribute("aColor",new THREE.BufferAttribute(colors,3));g.setAttribute("aSize",new THREE.BufferAttribute(sizes,1));g.setAttribute("aSeed",new THREE.BufferAttribute(seeds,1));
+ const m=new THREE.ShaderMaterial({uniforms:{uTime:{value:0},uBoost:{value:boost}},vertexShader:vertex,fragmentShader:fragment,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
+ const points=new THREE.Points(g,m);points.frustumCulled=false;parent.add(points);return points;
+}
+const color3=values=>values.map(v=>new THREE.Color(v));
+function blendPalette(t,cols){const x=t*(cols.length-1),i=Math.min(cols.length-2,Math.floor(x));return cols[i].clone().lerp(cols[i+1],x-i);}
+function heartXY(t){return{x:16*Math.pow(Math.sin(t),3),y:13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t)}}
+const outline=[];for(let i=0;i<360;i++){const p=heartXY(i/360*Math.PI*2);outline.push({x:p.x/3.5,y:(p.y+2.5)/3.5});}
+function insideHeart(x,y){let inside=false;for(let i=0,j=outline.length-1;i<outline.length;j=i++){const a=outline[i],b=outline[j];if(((a.y>y)!==(b.y>y))&&(x<(b.x-a.x)*(y-a.y)/(b.y-a.y)+a.x))inside=!inside;}return inside;}
+// Dense glowing heart volume: luminous outer shell plus a softer inner nebula.
+const heartN=21000,heartPos=new Float32Array(heartN*3),heartCol=new Float32Array(heartN*3),heartSize=new Float32Array(heartN),heartSeed=new Float32Array(heartN);
+let hc=color3(palettes[0].heart);
+for(let i=0;i<heartN;i++){
+ let x,y,tries=0;do{x=(Math.random()*2-1)*4.75;y=(Math.random()*2-1)*4.5;tries++;}while(!insideHeart(x,y)&&tries<120);
+ if(!insideHeart(x,y)){x*=.5;y*=.5;}
+ const edge=Math.random()<.54,depth=edge?(Math.random()-.5)*.5:(Math.random()-.5)*2.35;
+ const p=i*3;heartPos[p]=x;heartPos[p+1]=y;heartPos[p+2]=depth;
+ const t=Math.max(0,Math.min(1,(x+4.8)/9.6))*.7+Math.random()*.3;
+ const c=blendPalette(Math.min(.999,t),hc),b=.75+Math.random()*.65;
+ heartCol[p]=c.r*b;heartCol[p+1]=c.g*b;heartCol[p+2]=c.b*b;
+ heartSize[i]=edge?.75+Math.random()*2.8:.45+Math.random()*2.1;heartSeed[i]=Math.random();
+}
+const heartPoints=makePoints(heartGroup,heartPos,heartCol,heartSize,heartSeed,.4);
+// Starlight tracing the edge of the heart.
+const rimN=2800,rimPos=new Float32Array(rimN*3),rimCol=new Float32Array(rimN*3),rimSize=new Float32Array(rimN),rimSeed=new Float32Array(rimN);
+for(let i=0;i<rimN;i++){const t=i/rimN*Math.PI*2,p=heartXY(t),j=i*3,s=3.5;rIm:
+ rimPos[j]=p.x/s+(Math.random()-.5)*.10;rimPos[j+1]=(p.y+2.5)/s+(Math.random()-.5)*.10;rimPos[j+2]=(Math.random()-.5)*.5;
+ const c=new THREE.Color(i%4===0?0xffffff:(i%2===0?0xffd3f0:0xff80cb));rimCol[j]=c.r;rimCol[j+1]=c.g;rimCol[j+2]=c.b;rimSize[i]=1+Math.random()*3.5;rimSeed[i]=Math.random();}
+const rimPoints=makePoints(heartGroup,rimPos,rimCol,rimSize,rimSeed,.7);
+// A surrounding deep field of stars.
+const starN=4200,starPos=new Float32Array(starN*3),starCol=new Float32Array(starN*3),starSize=new Float32Array(starN),starSeed=new Float32Array(starN);
+const starColors=color3([0x8a74d8,0xffa8d9,0xffffff,0x93d9ff,0xcba8ff]);
+for(let i=0;i<starN;i++){const j=i*3;let x,y,z;const a=Math.random()*Math.PI*2,r=8+Math.random()*33;x=Math.cos(a)*r*1.4;y=(Math.random()-.5)*22;z=(Math.random()-.5)*24;starPos[j]=x;starPos[j+1]=y;starPos[j+2]=z;const c=starColors[Math.floor(Math.random()*starColors.length)].clone().multiplyScalar(.65+Math.random()*.6);starCol[j]=c.r;starCol[j+1]=c.g;starCol[j+2]=c.b;starSize[i]=.65+Math.pow(Math.random(),2)*3.2;starSeed[i]=Math.random();}
+const stars=makePoints(scene,starPos,starCol,starSize,starSeed,.15);
+// Floating heart-shaped constellations orbit in tilted rings.
+const orbitGroup=new THREE.Group();world.add(orbitGroup);
+function heartShape(scale,color){const pts=[];for(let i=0;i<50;i++){const t=i/50*Math.PI*2,p=heartXY(t);pts.push(new THREE.Vector3(p.x/3.5*scale,(p.y+2.5)/3.5*scale,0));}
+ const curve=new THREE.CatmullRomCurve3(pts,true);const geom=new THREE.TubeGeometry(curve,120,.012*scale,5,true);const mat=new THREE.MeshBasicMaterial({color:color,transparent:true,opacity:.6,blending:THREE.AdditiveBlending});return new THREE.Mesh(geom,mat);}
+const miniHearts=[];
+for(let i=0;i<7;i++){const orbit=new THREE.Group();orbit.rotation.set(.3+i*.38,.2+i*.72,(i%2?-.3:.28));orbitGroup.add(orbit);const radius=6.3+(i%3)*1.4,angle=i*2.399;const h=heartShape(.14+(i%3)*.035,[0xffa3d8,0xc9b3ff,0x8deaff][i%3]);h.position.set(Math.cos(angle)*radius,Math.sin(angle)*radius*.75,Math.sin(i*1.8)*1.6);orbit.add(h);
+ const glow=new THREE.PointLight([0xff7cc8,0xa98aff,0x75dfff][i%3],.8,5);glow.position.copy(h.position);orbit.add(glow);miniHearts.push({orbit,heart:h,speed:.04+i*.008,phase:angle});}
+function createShootingStar(){const group=new THREE.Group();const start=new THREE.Vector3((Math.random()-.5)*34,8+Math.random()*8,-7-Math.random()*8);const end=start.clone().add(new THREE.Vector3(-5-Math.random()*5,-5-Math.random()*6,0));const points=[];for(let i=0;i<=12;i++)points.push(start.clone().lerp(end,i/12));const geo=new THREE.BufferGeometry().setFromPoints(points);const mat=new THREE.LineBasicMaterial({color:[0xffbae5,0xc8b8ff,0x9df2ff][Math.floor(Math.random()*3)],transparent:true,opacity:.8});const line=new THREE.Line(geo,mat);group.add(line);scene.add(group);return{group,life:0,duration:1.1+Math.random()*.8};}
+let shooting=[],shootTimer=0;
+document.getElementById("rotate").addEventListener("click",function(){rotating=!rotating;this.setAttribute("aria-pressed",String(rotating));document.getElementById("rotateText").textContent=rotating?"Tạm dừng xoay":"Tiếp tục xoay";this.querySelector(".ico").textContent=rotating?"Ⅱ":"▶";});
+document.getElementById("glow").addEventListener("click",function(){palette=(palette+1)%palettes.length;const pal=palettes[palette];hc=color3(pal.heart);for(let i=0;i<heartN;i++){const j=i*3,t=Math.max(0,Math.min(.999,(heartPos[j]+4.8)/9.6))*.7+Math.random()*.3,c=blendPalette(Math.min(.999,t),hc),b=.75+Math.random()*.65;heartCol[j]=c.r*b;heartCol[j+1]=c.g*b;heartCol[j+2]=c.b*b;}heartPoints.geometry.attributes.aColor.needsUpdate=true;pinkLight.color.setHex(pal.glow);violetLight.color.setHex(pal.heart[2]);rimPoints.material.uniforms.uBoost.value=1.5;document.querySelector(".subtitle").textContent="Một lời chúc dịu dàng, lấp lánh như " + pal.label.toLowerCase();});
+document.getElementById("gift").addEventListener("click",function(){celebrating=true;celebrateUntil=performance.now()+2600;document.querySelector(".wish").textContent="Gửi đến bạn ngàn trái tim và vạn điều lành ♡";document.querySelector(".smallwish").textContent="Mong mỗi ngày đều có người trân trọng nụ cười và sự tuyệt vời của bạn.";for(let i=0;i<9;i++)miniHearts[i%miniHearts.length].heart.scale.setScalar(1.4);});
+document.getElementById("full").addEventListener("click",async function(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen();}catch(e){document.querySelector(".subtitle").textContent="Trình duyệt hiện không hỗ trợ toàn màn hình."; }});
+canvas.addEventListener("pointerdown",e=>{dragging=true;px=e.clientX;py=e.clientY;canvas.setPointerCapture(e.pointerId);canvas.style.cursor="grabbing";});
+canvas.addEventListener("pointermove",e=>{if(!dragging)return;rotY+=(e.clientX-px)*.005;rotX+=(e.clientY-py)*.004;rotX=Math.max(-.95,Math.min(.95,rotX));px=e.clientX;py=e.clientY;});
+function release(){dragging=false;canvas.style.cursor="grab";}canvas.addEventListener("pointerup",release);canvas.addEventListener("pointercancel",release);canvas.style.cursor="grab";
+canvas.addEventListener("wheel",e=>{e.preventDefault();camera.position.z=Math.max(14,Math.min(30,camera.position.z+Math.sign(e.deltaY)*1.2));},{passive:false});
+window.addEventListener("resize",()=>{camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth<650?57:48;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.6));renderer.setSize(innerWidth,innerHeight);});
+let last=0;
+function animate(now){requestAnimationFrame(animate);const t=clock.getElapsedTime(),dt=Math.min(.04,(now-last)/1000||.016);last=now;
+for(const pts of [heartPoints,rimPoints,stars])pts.material.uniforms.uTime.value=t;
+if(rotating&&!dragging)rotY+=dt*.105;
+world.rotation.y+=(rotY-world.rotation.y)*.055;world.rotation.x+=(rotX-world.rotation.x)*.055;world.rotation.z=Math.sin(t*.24)*.035;
+heartGroup.rotation.y=Math.sin(t*.24)*.11;heartGroup.scale.setScalar(1+Math.sin(t*2.1)*.018+(celebrating&&now<celebrateUntil?.045:0));
+heartPoints.material.uniforms.uBoost.value=celebrating&&now<celebrateUntil?2.4:.4;rimPoints.material.uniforms.uBoost.value=celebrating&&now<celebrateUntil?2.2:.7;
+orbitGroup.rotation.y=t*.035;orbitGroup.rotation.z=Math.sin(t*.18)*.05;
+miniHearts.forEach(h=>{h.orbit.rotation.y+=dt*h.speed;h.heart.rotation.z=Math.sin(t*1.1+h.phase)*.15;if(!(celebrating&&now<celebrateUntil))h.heart.scale.setScalar(1);});
+pinkLight.intensity=88+Math.sin(t*1.8)*12+(celebrating&&now<celebrateUntil?70:0);violetLight.intensity=72+Math.sin(t*1.1+2)*12;
+shootTimer+=dt;if(shootTimer>1.1+Math.random()*1.4){shooting.push(createShootingStar());shootTimer=0;}
+for(let i=shooting.length-1;i>=0;i--){const s=shooting[i];s.life+=dt;s.group.position.y-=dt*2.1;s.group.position.x-=dt*1.8;s.group.children[0].material.opacity=Math.max(0,1-s.life/s.duration);if(s.life>s.duration){scene.remove(s.group);s.group.children[0].geometry.dispose();s.group.children[0].material.dispose();shooting.splice(i,1);}}
+renderer.render(scene,camera);}
+camera.fov=innerWidth<650?57:48;camera.updateProjectionMatrix();requestAnimationFrame(animate);
+</script>
+</body>
+</html>
