@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050615">
+<meta name="description" content="Khám phá vũ trụ 3D lấp lánh, chuyển động và phát sáng.">
+<title>Cosmic — Vũ trụ sống</title>
+<style>
+:root{color-scheme:dark;--line:rgba(196,194,255,.2);--cyan:#80f7ff}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050615;color:#f4f3ff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+#space{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none}
+.vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 46%,transparent 20%,rgba(4,5,20,.22) 65%,rgba(3,4,15,.76) 120%),linear-gradient(90deg,rgba(5,6,21,.5),transparent 65%)}
+.grain{pointer-events:none;position:fixed;inset:0;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");mix-blend-mode:screen}
+.topbar{position:fixed;top:0;left:0;right:0;padding:28px clamp(18px,4vw,58px);display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:5;pointer-events:none}
+.brand,.live{display:flex;align-items:center;gap:11px;font-size:11px;font-weight:750;letter-spacing:.22em;text-transform:uppercase}
+.brand-mark{width:30px;height:30px;border-radius:50%;position:relative;border:1px solid rgba(153,229,255,.72);box-shadow:0 0 18px rgba(90,185,255,.22),inset 0 0 12px rgba(120,110,255,.35)}
+.brand-mark:before{content:"";position:absolute;width:8px;height:8px;left:10px;top:10px;background:white;border-radius:50%;box-shadow:0 0 12px #a3f6ff,0 0 24px #b08aff}
+.brand-mark:after{content:"";position:absolute;left:3px;right:3px;top:11px;height:7px;border:1px solid rgba(164,144,255,.9);border-radius:50%;transform:rotate(-28deg)}
+.live{color:#b9bad8;letter-spacing:.16em;font-size:10px}.live-dot{width:6px;height:6px;border-radius:50%;background:#83f8dc;box-shadow:0 0 12px #83f8dc;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.45;transform:scale(.75)}}
+.intro{position:fixed;z-index:3;left:clamp(22px,7.5vw,112px);top:25.5%;max-width:420px;pointer-events:none}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;color:#bfc7ff;text-transform:uppercase;font-size:10px;letter-spacing:.3em;font-weight:700}
+.eyebrow:before{content:"";height:1px;width:30px;background:linear-gradient(90deg,#86edff,#ae8cff);box-shadow:0 0 10px #8abaff}
+h1{font-size:clamp(43px,6vw,82px);line-height:.91;letter-spacing:-.075em;font-weight:600;margin:0;text-wrap:balance;text-shadow:0 2px 35px rgba(130,110,255,.1)}
+h1 span{display:block;color:transparent;background:linear-gradient(100deg,#fff 5%,#c9cbff 45%,#89edff 87%);background-clip:text;-webkit-background-clip:text}
+.intro p{color:#b6b8d6;max-width:310px;font-size:13px;line-height:1.8;margin:23px 0 0;font-weight:350}
+.micro{color:#757aab;text-transform:uppercase;font-size:9px;letter-spacing:.22em;margin-top:24px}
+.corner-label{position:fixed;right:clamp(22px,5vw,70px);top:31%;writing-mode:vertical-rl;color:rgba(162,168,218,.6);font-size:9px;letter-spacing:.25em;text-transform:uppercase;z-index:3}
+.bottom-left{position:fixed;left:clamp(18px,4vw,58px);bottom:30px;z-index:5;display:flex;align-items:center;gap:13px;color:#a5a6c7;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.mouse-icon{width:18px;height:26px;border:1px solid rgba(207,210,255,.58);border-radius:10px;position:relative}
+.mouse-icon:after{content:"";width:2px;height:5px;position:absolute;left:7px;top:5px;border-radius:3px;background:#c2caff;animation:scroll 1.6s infinite}
+@keyframes scroll{0%,100%{transform:translateY(0);opacity:1}75%{transform:translateY(6px);opacity:.1}}
+.controls{position:fixed;z-index:6;right:clamp(18px,4vw,58px);bottom:24px;display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px}
+.control{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 15px;border-radius:99px;border:1px solid var(--line);background:rgba(11,13,36,.53);color:#e2e3ff;font:inherit;font-size:11px;letter-spacing:.035em;cursor:pointer;backdrop-filter:blur(14px);transition:border-color .2s,background .2s,transform .2s,box-shadow .2s}
+.control:hover{border-color:rgba(137,227,255,.65);background:rgba(37,40,84,.7);box-shadow:0 0 22px rgba(93,160,255,.12);transform:translateY(-1px)}
+.control:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}.control.primary{background:linear-gradient(115deg,rgba(88,107,201,.4),rgba(128,79,174,.28));border-color:rgba(160,174,255,.4)}
+.control .icon{font-size:14px;line-height:1}
+.status{position:fixed;z-index:4;bottom:90px;left:50%;transform:translateX(-50%);color:rgba(190,195,236,.66);font-size:9px;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;pointer-events:none}
+.fallback{position:fixed;inset:0;display:none;place-items:center;padding:28px;text-align:center;color:#d7d8ff;z-index:10;background:#050615}.fallback.show{display:grid}
+@media(max-width:720px){.topbar{padding-top:max(17px,env(safe-area-inset-top));padding-left:18px;padding-right:18px}.brand{font-size:9px;letter-spacing:.15em;gap:8px}.brand-mark{width:26px;height:26px}.brand-mark:before{left:8px;top:8px}.brand-mark:after{top:9px}.live{font-size:8px;letter-spacing:.1em}.intro{left:22px;right:20px;top:15%;max-width:320px}h1{font-size:clamp(43px,12vw,66px)}.eyebrow{font-size:8px;margin-bottom:14px}.intro p{max-width:265px;font-size:11px;line-height:1.65;margin-top:15px}.micro,.corner-label{display:none}.bottom-left{left:20px;bottom:calc(91px + env(safe-area-inset-bottom));font-size:8px;gap:9px}.mouse-icon{width:14px;height:21px}.mouse-icon:after{left:5px;top:4px}.controls{left:12px;right:12px;bottom:calc(15px + env(safe-area-inset-bottom));justify-content:center;gap:6px}.control{min-height:39px;padding:0 11px;font-size:10px}.control .icon{font-size:12px}.status{bottom:74px;font-size:7px;letter-spacing:.13em}}
+@media(max-height:600px) and (min-width:721px){.intro{top:20%}h1{font-size:58px}.intro p{margin-top:12px}.micro{margin-top:12px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<canvas id="space" aria-label="Vũ trụ 3D có các ngôi sao và thiên hà đang xoay"></canvas>
+<div class="vignette"></div><div class="grain"></div>
+<header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>COSMIC <span style="opacity:.42">/</span> 001</span></div><div class="live"><span class="live-dot"></span> Universe is alive</div></header>
+<section class="intro"><div class="eyebrow">A little beyond infinity</div><h1>THE LIVING <span>UNIVERSE</span></h1><p>Một hành trình nhỏ giữa hàng triệu vì sao. Chạm, kéo và khám phá vẻ đẹp đang chuyển động của vũ trụ.</p><div class="micro">Drag to explore · Made of stardust</div></section>
+<div class="corner-label">Somewhere between silence and infinity</div>
+<div class="bottom-left"><span class="mouse-icon" aria-hidden="true"></span><span>Kéo để xoay không gian</span></div>
+<div class="status" id="status">Milky way · 0.001% explored</div>
+<nav class="controls" aria-label="Điều khiển vũ trụ">
+<button class="control primary" id="rotateBtn" type="button" aria-pressed="true"><span class="icon">Ⅱ</span><span id="rotateText">Tạm dừng</span></button>
+<button class="control" id="paletteBtn" type="button"><span class="icon">✦</span><span>Đổi ánh sáng</span></button>
+<button class="control" id="zoomBtn" type="button"><span class="icon">＋</span><span>Tiến gần</span></button>
+<button class="control" id="fullBtn" type="button"><span class="icon">⛶</span><span>Toàn màn hình</span></button>
+</nav>
+<div class="fallback" id="fallback"><div><h2>Vũ trụ đang khởi động</h2><p>Trang cần kết nối Internet để tải thư viện hiển thị 3D. Hãy kiểm tra kết nối rồi tải lại trang.</p></div></div>
+<script type="module">
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js";
+const canvas=document.getElementById("space"),fallback=document.getElementById("fallback");
+let renderer;
+try{renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false,powerPreference:"high-performance"});}catch(e){fallback.classList.add("show");throw e;}
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.8));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.28;
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x050615);scene.fog=new THREE.FogExp2(0x050615,.0052);
+const camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.1,350);camera.position.set(0,9.6,27.5);camera.lookAt(0,0,0);
+scene.add(new THREE.AmbientLight(0x7d82dd,.72));
+const coreLight=new THREE.PointLight(0x78e9ff,95,36,1.75);scene.add(coreLight);
+const violetLight=new THREE.PointLight(0x9d64ff,58,30,2);violetLight.position.set(-5,2,-3);scene.add(violetLight);
+const pinkLight=new THREE.PointLight(0xff72d2,42,26,2);pinkLight.position.set(5,-2,2);scene.add(pinkLight);
+const universe=new THREE.Group();scene.add(universe);const galaxy=new THREE.Group();universe.add(galaxy);
+const palettes=[{core:0x99f9ff,blue:0x4c92ff,purple:0x9d64ff,pink:0xff72d2,light:0x78e9ff,name:"Aurora"},{core:0xffedda,blue:0xffa45b,purple:0xff4c83,pink:0xc65cff,light:0xff92b8,name:"Supernova"},{core:0xc9fff0,blue:0x32c8c0,purple:0x487dff,pink:0x9a9cff,light:0x8dfff1,name:"Nebula"}];
+let paletteIndex=0,autoRotate=true,desiredY=0,desiredX=-.2,currentZoom=27.5,targetZoom=27.5,dragging=false,previousX=0,previousY=0;
+const clock=new THREE.Clock();
+const galaxyVertex=[
+"attribute float aSize;","attribute float aSeed;","attribute vec3 aColor;","uniform float uTime;","varying vec3 vColor;","varying float vAlpha;","void main(){","vColor=aColor;","vec4 mvPosition=modelViewMatrix*vec4(position,1.0);","float flicker=.78+.22*sin(uTime*(.8+aSeed*1.8)+aSeed*45.0);","gl_PointSize=clamp(aSize*flicker*(260.0/max(1.0,-mvPosition.z)),1.0,8.5);","gl_Position=projectionMatrix*mvPosition;","vAlpha=.45+.55*flicker;","}"
+].join("\n");
+const galaxyFragment=["varying vec3 vColor;","varying float vAlpha;","void main(){","vec2 p=gl_PointCoord-vec2(.5);","float d=length(p);","float glow=exp(-d*13.5);","float core=smoothstep(.24,.02,d);","float alpha=(glow*.42+core*.95)*vAlpha;","if(alpha<.025)discard;","gl_FragColor=vec4(vColor*(1.0+glow*1.5),alpha);","}"].join("\n");
+function particleMaterial(){return new THREE.ShaderMaterial({uniforms:{uTime:{value:0}},vertexShader:galaxyVertex,fragmentShader:galaxyFragment,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});}
+function addField(parent,count,cfg){
+ const pos=new Float32Array(count*3),cols=new Float32Array(count*3),sizes=new Float32Array(count),seeds=new Float32Array(count);
+ const c1=new THREE.Color(cfg.colors[0]),c2=new THREE.Color(cfg.colors[1]),c3=new THREE.Color(cfg.colors[2]);
+ for(let i=0;i<count;i++){const p=cfg.position(i,count);pos[i*3]=p.x;pos[i*3+1]=p.y;pos[i*3+2]=p.z;const t=Math.max(0,Math.min(1,p.mix===undefined?Math.random():p.mix));const c=t<.5?c1.clone().lerp(c2,t*2):c2.clone().lerp(c3,(t-.5)*2);const w=.75+Math.random()*.55;cols[i*3]=c.r*w;cols[i*3+1]=c.g*w;cols[i*3+2]=c.b*w;sizes[i]=cfg.sizeMin+Math.pow(Math.random(),2.2)*(cfg.sizeMax-cfg.sizeMin);seeds[i]=Math.random();}
+ const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));g.setAttribute("aColor",new THREE.BufferAttribute(cols,3));g.setAttribute("aSize",new THREE.BufferAttribute(sizes,1));g.setAttribute("aSeed",new THREE.BufferAttribute(seeds,1));const m=particleMaterial();const points=new THREE.Points(g,m);points.frustumCulled=false;parent.add(points);return points;
+}
+const outerStars=addField(scene,3000,{colors:[0x6c82d8,0x9bceff,0xffffff],sizeMin:1,sizeMax:4.3,position:function(){const r=48+Math.random()*125,t=Math.random()*Math.PI*2,p=Math.acos(2*Math.random()-1);return{x:r*Math.sin(p)*Math.cos(t),y:r*Math.cos(p),z:r*Math.sin(p)*Math.sin(t),mix:Math.random()};}});
+const galaxyPoints=addField(galaxy,22000,{colors:[0x7d75fa,0x66dfff,0xff9be9],sizeMin:1,sizeMax:5.8,position:function(){const r=Math.pow(Math.random(),.72)*9,arm=Math.floor(Math.random()*4),spread=(Math.random()-.5)*(.36+r*.052),a=arm*Math.PI/2+r*.65+spread,y=(Math.random()+Math.random()+Math.random()-1.5)*(.12+r*.027);return{x:Math.cos(a)*r+(Math.random()-.5)*.18,y:y,z:Math.sin(a)*r+(Math.random()-.5)*.18,mix:Math.min(1,r/8.5)};}});
+const dust=addField(galaxy,10500,{colors:[0x334fd1,0x9266ff,0xff82d6],sizeMin:.6,sizeMax:2.8,position:function(){const r=2.3+Math.random()*8.5,a=Math.floor(Math.random()*4)*Math.PI/2+r*.65+(Math.random()-.5)*.24;return{x:Math.cos(a)*r,y:(Math.random()-.5)*.33,z:Math.sin(a)*r,mix:r/11};}});
+function glowSphere(radius,color,opacity,scale){const mat=new THREE.ShaderMaterial({uniforms:{glowColor:{value:new THREE.Color(color)},intensity:{value:opacity}},vertexShader:["varying vec3 vNormal;","varying vec3 vViewPosition;","void main(){","vNormal=normalize(normalMatrix*normal);","vec4 mv=modelViewMatrix*vec4(position,1.0);","vViewPosition=-mv.xyz;","gl_Position=projectionMatrix*mv;","}"].join("\n"),fragmentShader:["uniform vec3 glowColor;","uniform float intensity;","varying vec3 vNormal;","varying vec3 vViewPosition;","void main(){","vec3 viewDir=normalize(vViewPosition);","float rim=pow(1.0-max(dot(normalize(vNormal),viewDir),0.0),2.25);","gl_FragColor=vec4(glowColor,rim*intensity);","}"].join("\n"),transparent:true,blending:THREE.AdditiveBlending,side:THREE.BackSide,depthWrite:false});const mesh=new THREE.Mesh(new THREE.SphereGeometry(radius,40,40),mat);mesh.scale.setScalar(scale||1);return mesh;}
+const core=new THREE.Group();galaxy.add(core);
+const starCore=new THREE.Mesh(new THREE.SphereGeometry(1.13,56,56),new THREE.ShaderMaterial({
+uniforms:{uTime:{value:0},uCore:{value:new THREE.Color(palettes[0].core)},uEdge:{value:new THREE.Color(palettes[0].purple)}},
+vertexShader:["varying vec3 vPos;","varying vec3 vNormal;","void main(){","vPos=position;vNormal=normalize(normalMatrix*normal);","gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);","}"].join("\n"),
+fragmentShader:["uniform float uTime;","uniform vec3 uCore;","uniform vec3 uEdge;","varying vec3 vPos;","varying vec3 vNormal;","void main(){","float wave=sin(vPos.x*7.0+vPos.y*4.0+uTime*1.5)*cos(vPos.z*8.0-uTime);","float bands=sin((vPos.x+vPos.y*.7+vPos.z)*13.0+wave*1.8+uTime*1.2);","float mixValue=smoothstep(-.7,.9,bands+wave*.35);","vec3 color=mix(uEdge,uCore,mixValue);","float glow=1.0+.22*sin(uTime*2.2+vPos.y*6.0);","gl_FragColor=vec4(color*glow,1.0);","}"].join("\n")
+}));
+core.add(starCore);core.add(glowSphere(1.45,0x8a75ff,.72,1.16));core.add(glowSphere(1.86,0x6feaff,.48,1.06));core.add(glowSphere(2.45,0xa66aff,.3,1));
+function ring(radius,thickness,color,opacity,rot){const m=new THREE.Mesh(new THREE.TorusGeometry(radius,thickness,8,220),new THREE.MeshBasicMaterial({color:color,transparent:true,opacity:opacity,blending:THREE.AdditiveBlending,depthWrite:false}));m.rotation.set(rot.x,rot.y,rot.z);galaxy.add(m);return m;}
+const ringA=ring(3.15,.014,0x77dcff,.68,{x:1.13,y:.1,z:.06}),ringB=ring(4.65,.009,0xa174ff,.44,{x:.94,y:-.24,z:.4}),ringC=ring(6.65,.007,0xff81dc,.25,{x:1.19,y:.4,z:-.35});
+const planets=[];
+function planet(color,halo,orbit,speed,size,tilt,offset){const group=new THREE.Group();group.rotation.x=tilt;galaxy.add(group);const mesh=new THREE.Mesh(new THREE.SphereGeometry(size,28,28),new THREE.MeshStandardMaterial({color:color,roughness:.55,metalness:.2,emissive:color,emissiveIntensity:.32}));mesh.position.set(orbit,0,0);group.add(mesh);const glow=glowSphere(size*1.8,halo,.55,1);glow.position.copy(mesh.position);group.add(glow);const l=new THREE.PointLight(halo,2.2,7,2);l.position.copy(mesh.position);group.add(l);planets.push({group,speed:speed,base:offset});}
+planet(0x9efbff,0x49d9ff,4.1,.23,.18,.35,1);planet(0xff8bd9,0xff48c8,5.7,-.14,.24,1.02,2.2);planet(0x9b8cff,0x8370ff,7.9,.09,.29,.62,3.4);
+const orbitDots=new THREE.Group();galaxy.add(orbitDots);
+for(let i=0;i<140;i++){const a=Math.random()*Math.PI*2,r=2.4+Math.random()*5.5,d=new THREE.Mesh(new THREE.SphereGeometry(.018+Math.random()*.025,6,6),new THREE.MeshBasicMaterial({color:[0x8df9ff,0xbb90ff,0xffa6e8][i%3],transparent:true,opacity:.55+Math.random()*.45,blending:THREE.AdditiveBlending}));d.position.set(Math.cos(a)*r,(Math.random()-.5)*.3,Math.sin(a)*r);orbitDots.add(d);}
+const cloud=addField(scene,1800,{colors:[0x252d96,0x4a287f,0x71377f],sizeMin:3,sizeMax:15,position:function(){const a=Math.random()*Math.PI*2,r=17+Math.random()*15,b=(Math.random()+Math.random()+Math.random()-1.5)*3.8;return{x:Math.cos(a)*r,y:b+Math.sin(a*2)*2.2,z:Math.sin(a)*r,mix:Math.random()};}});
+function resize(){camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth<720?55:48;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.8));renderer.setSize(innerWidth,innerHeight);}
+window.addEventListener("resize",resize);
+canvas.addEventListener("pointerdown",function(e){dragging=true;previousX=e.clientX;previousY=e.clientY;canvas.setPointerCapture(e.pointerId);canvas.style.cursor="grabbing";});
+canvas.addEventListener("pointermove",function(e){if(!dragging)return;desiredY+=(e.clientX-previousX)*.005;desiredX+=(e.clientY-previousY)*.0035;desiredX=Math.max(-.85,Math.min(.75,desiredX));previousX=e.clientX;previousY=e.clientY;});
+function release(){dragging=false;canvas.style.cursor="grab";}canvas.addEventListener("pointerup",release);canvas.addEventListener("pointercancel",release);canvas.style.cursor="grab";
+canvas.addEventListener("wheel",function(e){e.preventDefault();targetZoom=Math.max(14,Math.min(42,targetZoom+Math.sign(e.deltaY)*1.5));},{passive:false});
+document.getElementById("rotateBtn").addEventListener("click",function(){autoRotate=!autoRotate;this.setAttribute("aria-pressed",String(autoRotate));document.getElementById("rotateText").textContent=autoRotate?"Tạm dừng":"Tiếp tục xoay";this.querySelector(".icon").textContent=autoRotate?"Ⅱ":"▶";});
+document.getElementById("paletteBtn").addEventListener("click",function(){paletteIndex=(paletteIndex+1)%palettes.length;const p=palettes[paletteIndex];coreLight.color.setHex(p.light);violetLight.color.setHex(p.purple);pinkLight.color.setHex(p.pink);starCore.material.uniforms.uCore.value.setHex(p.core);starCore.material.uniforms.uEdge.value.setHex(p.purple);ringA.material.color.setHex(p.blue);ringB.material.color.setHex(p.purple);ringC.material.color.setHex(p.pink);document.getElementById("status").textContent=p.name+" palette · 0.001% explored";});
+document.getElementById("zoomBtn").addEventListener("click",function(){targetZoom=targetZoom>23?18:27.5;this.querySelector(".icon").textContent=targetZoom<23?"−":"＋";this.lastElementChild.textContent=targetZoom<23?"Lùi ra":"Tiến gần";});
+document.getElementById("fullBtn").addEventListener("click",async function(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen();}catch(e){document.getElementById("status").textContent="Toàn màn hình không khả dụng trên trình duyệt này";}});
+let last=0;
+function animate(now){requestAnimationFrame(animate);const t=clock.getElapsedTime(),dt=Math.min(.04,(now-last)/1000||.016);last=now;
+galaxyPoints.material.uniforms.uTime.value=t;dust.material.uniforms.uTime.value=t*1.15;outerStars.material.uniforms.uTime.value=t*.65;cloud.material.uniforms.uTime.value=t*.25;starCore.material.uniforms.uTime.value=t;
+if(autoRotate&&!dragging)desiredY+=dt*.075;
+universe.rotation.y+=(desiredY-universe.rotation.y)*.045;universe.rotation.x+=(desiredX-universe.rotation.x)*.045;universe.rotation.z=Math.sin(t*.12)*.025;core.rotation.y=t*.15;core.rotation.x=Math.sin(t*.2)*.05;ringA.rotation.z+=dt*.035;ringB.rotation.z-=dt*.022;ringC.rotation.z+=dt*.012;orbitDots.rotation.y=-t*.018;
+planets.forEach(function(p){p.group.rotation.y=t*p.speed+p.base;});coreLight.intensity=88+Math.sin(t*1.5)*10;violetLight.intensity=52+Math.sin(t*.7+1)*7;camera.position.z+=(targetZoom-camera.position.z)*.07;camera.lookAt(0,0,0);renderer.render(scene,camera);}
+requestAnimationFrame(animate);
+</script>
+</body>
+</html>
